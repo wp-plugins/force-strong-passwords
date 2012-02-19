@@ -22,6 +22,8 @@ The rationale here is:
 
 Future version may include settings for greater flexibility in enforcing the check.
 
+Development code hosted at [GitHub](https://github.com/gyrus/Force-Strong-Passwords).
+
 == Installation ==
 1. Upload the `force-strong-passwords` directory into the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
