@@ -1,26 +1,27 @@
 === Force Strong Passwords ===
-Contributors: gyrus
+Contributors: gyrus, simonwheatley
 Donate link: http://www.babyloniantimes.co.uk/index.php?page=donate
 Tags: passwords, security, users, profile
-Requires at least: 3.1
-Tested up to: 3.2.1
-Stable tag: 1.0
+Requires at least: 3.5
+Tested up to: 3.5.1
+Stable tag: 1.1
 
-Forces users with executive capabilities to use something strong when updating their passwords.
+Forces users to enter something strong when updating their passwords.
 
 == Description ==
 The WordPress user profile includes a JavaScript-powered indicator as a guide to the strength of a password being entered. However, there is nothing to stop users entering weak passwords.
 
-Often, users granted Administrator or Editor roles, who change their password to something very weak, is the most vulnerable aspect of a WordPress installation. This plugin duplicates the WordPress JavaScript password strength check in PHP, and forces users with executive powers to use a strong password.
+Often, users changing their password to something very weak is the most vulnerable aspect of a WordPress installation. This plugin duplicates the WordPress JavaScript password strength check in PHP, and forces users with executive powers to use a strong password.
 
-The check is enforced unless the user being edited can't `publish_posts`, can't `upload_files`, and can't `edit_published_posts` - see [Roles and Capabilities]:http://codex.wordpress.org/Roles_and_Capabilities
+As of version 1.1, strong passwords are enforced for all users who have any of the capabilities defined in the `SLT_FSP_CAPS_CHECK` constant. If this constant isn't defined, it defaults to checking for any of the following capabilities: `publish_posts`, `upload_files`, `edit_published_posts` (see [Roles and Capabilities]:http://codex.wordpress.org/Roles_and_Capabilities). If the constant is defined to anything that evaluates to `false`, all users are forced to use a strong password.
 
-The rationale here is:
+So, to extend strong password enforcement to users who can edit posts (even if they're not published), add the following line to `wp-config.php`:
 
-1. The capabilities assigned to roles may have been altered by a role management plugin, so check on roles is unsafe.
-1. There's no need to check for all executive capabilities; it's assumed that if a user can't do any of the above three things, they won't be able to `update_core` or `manage_options`.
+ `define( 'SLT_FSP_CAPS_CHECK', 'publish_posts,upload_files,edit_published_posts,edit_posts' );`
 
-Future version may include settings for greater flexibility in enforcing the check.
+ To force all users to use a strong password:
+
+ `define( 'SLT_FSP_CAPS_CHECK', false );`
 
 Development code hosted at [GitHub](https://github.com/gyrus/Force-Strong-Passwords).
 
@@ -29,5 +30,11 @@ Development code hosted at [GitHub](https://github.com/gyrus/Force-Strong-Passwo
 1. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+= 1.1 =
+* Used new `validate_password_reset` 3.5 hook to implement checking on reset password form (thanks simonwheatley!)
+* PHPDoc for callable functions
+* Improved function naming
+* Added control over capabilities that trigger strong password enforcement via `SLT_FSP_CAPS_CHECK` constant
+
 = 1.0 =
 * First version
