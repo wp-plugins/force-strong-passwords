@@ -4,7 +4,7 @@ Donate link: http://www.babyloniantimes.co.uk/index.php?page=donate
 Tags: passwords, security, users, profile
 Requires at least: 3.5
 Tested up to: 3.5.1
-Stable tag: 1.1
+Stable tag: 1.2
 
 Forces users to enter something strong when updating their passwords.
 
@@ -13,23 +13,43 @@ The WordPress user profile includes a JavaScript-powered indicator as a guide to
 
 Often, users changing their password to something very weak is the most vulnerable aspect of a WordPress installation. This plugin duplicates the WordPress JavaScript password strength check in PHP, and forces users with executive powers to use a strong password.
 
-As of version 1.1, strong passwords are enforced for all users who have any of the capabilities defined in the `SLT_FSP_CAPS_CHECK` constant. If this constant isn't defined, it defaults to checking for any of the following capabilities: `publish_posts`, `upload_files`, `edit_published_posts` (see [Roles and Capabilities]:http://codex.wordpress.org/Roles_and_Capabilities). If the constant is defined to anything that evaluates to `false`, all users are forced to use a strong password.
-
-So, to extend strong password enforcement to users who can edit posts (even if they're not published), add the following line to `wp-config.php`:
-
- `define( 'SLT_FSP_CAPS_CHECK', 'publish_posts,upload_files,edit_published_posts,edit_posts' );`
-
- To force all users to use a strong password:
-
- `define( 'SLT_FSP_CAPS_CHECK', false );`
+Strong passwords are enforced for all users who have any of specified array of capabilities. The default list is: `publish_posts`, `upload_files`, `edit_published_posts` (see [Roles and Capabilities](http://codex.wordpress.org/Roles_and_Capabilities)). If the user whose password is being edited holds any of these capabilities, the strong password enforcement will be triggered. To customize this list, use the `slt_fsp_caps_check` filter (see below).
 
 Development code hosted at [GitHub](https://github.com/gyrus/Force-Strong-Passwords).
+
+=== Filters ===
+
+**`slt_fsp_caps_check` (should return an array)**
+Modifies the array of capabilities that, if any one is held by the user whose password is being edited, the strong password enforcement will be triggered.
+
+To make sure users who can update the core require strong passwords:
+
+	add_filter( 'slt_fsp_caps_check', 'my_caps_check' );
+	function my_caps_check( $caps ) {
+		$caps[] = 'update_core';
+		return $caps;
+	}
+
+To trigger the strong password enforcement for all users:
+
+	add_filter( 'slt_fsp_caps_check', function() { return array(); } );
+
+**`slt_fsp_error_message` (should return a string)**
+Modifies the default error message.
+
+**`slt_fsp_weak_roles` (should return an array)**
+Modifies the array of roles that are considered "weak", and for which the strong password enforcement is skipped when creating a new user. In this situation, the user object has yet to be created, so there are no capabilities to go by, just the role that has been set on the New Users form. The default array includes: `subscriber` and `contributor`.
 
 == Installation ==
 1. Upload the `force-strong-passwords` directory into the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+= 1.2 =
+* Added `slt_fsp_error_message` filter to customize error message
+* Deprecated `SLT_FSP_CAPS_CHECK` constant; added `slt_fsp_caps_check` filter
+* Added `slt_fsp_weak_roles` filter
+
 = 1.1 =
 * Used new `validate_password_reset` 3.5 hook to implement checking on reset password form (thanks simonwheatley!)
 * PHPDoc for callable functions
