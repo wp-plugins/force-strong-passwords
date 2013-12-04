@@ -3,7 +3,7 @@
 /*
 Plugin Name: Force Strong Passwords
 Description: Forces users to use something strong when updating their passwords.
-Version: 1.3
+Version: 1.3.1
 Author: Steve Taylor
 Author URI: http://sltaylor.co.uk
 License: GPLv2
@@ -124,7 +124,7 @@ function slt_fsp_validate_strong_password( $errors, $user_data ) {
 		if ( SLT_FSP_USE_ZXCVBN ) {
 
 			// Check the strength passed from the zxcvbn meter
-			if ( $_POST['slt-fsp-pass-strength-result'] != 'Strong' ) {
+			if ( $_POST['slt-fsp-pass-strength-result'] != __( 'Strong' ) ) {
 				$password_ok = false;
 			}
 
