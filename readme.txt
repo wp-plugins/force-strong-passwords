@@ -1,10 +1,10 @@
 === Force Strong Passwords ===
-Contributors: gyrus, simonwheatley, sparanoid, jpry
+Contributors: boogah, gyrus, simonwheatley, sparanoid, jpry
 Donate link: http://www.babyloniantimes.co.uk/index.php?page=donate
 Tags: passwords, security, users, profile
 Requires at least: 3.5
-Tested up to: 4.1.1
-Stable tag: 1.4
+Tested up to: 4.2
+Stable tag: 1.5
 
 Forces users to enter something strong when updating their passwords.
 
@@ -45,6 +45,10 @@ Modifies the array of roles that are considered "weak", and for which the strong
 1. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Changelog ==
+
+= 1.5 =
+* Added French translation (thanks [Damien Piquet](https://github.com/dpiquet)!)
+* Added input sanitization (thanks [Jenny Wong](https://github.com/missjwo)!)
 
 = 1.4 =
 * Enforce on multisite network admin screens (thanks [Damien Piquet](https://github.com/dpiquet)!)
