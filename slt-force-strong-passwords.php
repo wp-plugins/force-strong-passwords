@@ -3,9 +3,9 @@
 /*
 Plugin Name: Force Strong Passwords
 Description: Forces users to use something strong when updating their passwords.
-Version: 1.5
-Author: Steve Taylor
-Author URI: http://sltaylor.co.uk
+Version: 1.5.1
+Author: Jason Cosper
+Author URI: https://github.com/boogah/Force-Strong-Passwords
 License: GPLv2
 */
 
@@ -63,6 +63,8 @@ function slt_fsp_init() {
 	// Hooks
 	add_action( 'user_profile_update_errors', 'slt_fsp_validate_profile_update', 0, 3 );
 	add_action( 'validate_password_reset', 'slt_fsp_validate_strong_password', 10, 2 );
+	add_action( 'resetpass_form', 'slt_fsp_validate_resetpass_form', 10);
+
 
 	if ( SLT_FSP_USE_ZXCVBN ) {
 
@@ -86,6 +88,11 @@ function slt_fsp_enqueue_force_zxcvbn_script() {
 // Check user profile update and throw an error if the password isn't strong
 function slt_fsp_validate_profile_update( $errors, $update, $user_data ) {
 	return slt_fsp_validate_strong_password( $errors, $user_data );
+}
+
+// Check password reset form and throw an error if the password isn't strong
+function slt_fsp_validate_resetpass_form( $user_data ) {
+	return slt_fsp_validate_strong_password( false, $user_data );
 }
 
 
