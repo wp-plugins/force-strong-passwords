@@ -3,7 +3,7 @@ Contributors: boogah, gyrus, simonwheatley, sparanoid, jpry
 Donate link: https://www.girldevelopit.com/donate
 Tags: passwords, security, users, profile
 Requires at least: 3.5
-Tested up to: 4.2.2
+Tested up to: 4.3
 Stable tag: 1.5.2
 
 Forces users to enter something strong when updating their passwords.
