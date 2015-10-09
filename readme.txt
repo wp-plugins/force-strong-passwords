@@ -4,7 +4,7 @@ Donate link: https://www.girldevelopit.com/donate
 Tags: passwords, security, users, profile
 Requires at least: 3.5
 Tested up to: 4.3.1
-Stable tag: 1.6.2
+Stable tag: 1.6.3
 
 Forces users to enter something strong when updating their passwords.
 
@@ -56,8 +56,11 @@ The default array includes: `subscriber` and `contributor`.
 
 == Changelog ==
 
+= 1.6.3 =
+* Updated `wp_enqueue_script` version argument
+
 = 1.6.2 =
-* Fixing issue with password reset page
+* Fixed issue where password resets weren't working
 * Tested to WordPress 4.3.1
 
 = 1.6.1 =
